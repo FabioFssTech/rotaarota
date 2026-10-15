@@ -1,84 +1,79 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rotas RJ</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Leaflet -->
-    <link rel="stylesheet"
-        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<title>Rotas RJ</title>
 
-    <!-- Routing Machine -->
-    <link rel="stylesheet"
-        href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css"/>
+<link rel="stylesheet"
+href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 
-    <!-- Seu CSS -->
-    <link rel="stylesheet" href="style.css">
+<link rel="stylesheet"
+href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css"/>
+
+<link rel="stylesheet" href="style.css">
+
 </head>
 <body>
 
-    <aside class="sidebar">
+<div class="sidebar">
 
-        <div class="logo">
-            🗺️ Rotas RJ
-        </div>
+<h1>🗺️ Rotas RJ</h1>
 
-        <div class="form-group">
-            <label>Origem</label>
-            <input
-                type="text"
-                id="origem"
-                placeholder="Ex: Copacabana, Rio de Janeiro">
-        </div>
+<input
+type="text"
+id="origem"
+placeholder="Origem (Endereço ou CEP)">
 
-        <div class="form-group">
-            <label>Destino</label>
-            <input
-                type="text"
-                id="destino"
-                placeholder="Ex: Cristo Redentor">
-        </div>
+<input
+type="text"
+id="destino"
+placeholder="Destino (Endereço ou CEP)">
 
-        <div class="buttons">
-            <button onclick="usarLocalizacao()">
-                📍 Minha Localização
-            </button>
+<div class="buttons">
 
-            <button onclick="calcularRota()">
-                🚗 Calcular Rota
-            </button>
-        </div>
+<button onclick="usarLocalizacao()">
+📍 Minha Localização
+</button>
 
-        <div class="info">
-            <h3>Informações da Rota</h3>
+<button onclick="calcularRota()">
+🚗 Calcular Rota
+</button>
 
-            <p id="distancia">
-                Distância: --
-            </p>
+</div>
 
-            <p id="tempo">
-                Tempo: --
-            </p>
-        </div>
+<div class="card">
 
-        <div class="historico">
-            <h3>Histórico</h3>
-            <ul id="listaHistorico"></ul>
-        </div>
+<h3>Informações da Rota</h3>
 
-    </aside>
+<p id="distancia">
+Distância: --
+</p>
 
-    <main id="map"></main>
+<p id="tempo">
+Tempo: --
+</p>
 
-    <!-- Leaflet -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</div>
 
-    <!-- Routing Machine -->
-    <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
+<div class="card">
 
-    <!-- Seu JavaScript -->
-    <script src="script.js"></script>
+<h3>Últimas Pesquisas</h3>
+
+<ul id="historico"></ul>
+
+</div>
+
+</div>
+
+<div id="map"></div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
+
+<script src="script.js"></script>
 
 </body>
 </html>
