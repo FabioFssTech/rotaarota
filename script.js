@@ -1,45 +1,93 @@
-let map = L.map('map').setView([-22.9068, -43.1729], 11);
+const map = L.map("map").setView(
+[-22.9068,-43.1729],
+11
+);
 
 L.tileLayer(
-'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
 {
-attribution:'© OpenStreetMap'
+attribution:"© OpenStreetMap"
 }
 ).addTo(map);
 
-let controleRota = null;
+let rotaControle;
 
 carregarHistorico();
 
-async function buscarCoordenadas(endereco){
+function ehCEP(valor){
 
-const resposta = await fetch(
-`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(endereco)}`
+return /^\d{5}-?\d{3}$/.test(valor);
+
+}
+
+async function converterCEP(cep){
+
+cep = cep.replace(/\D/g,'');
+
+const resposta =
+await fetch(
+`https://viacep.com.br/ws/${cep}/json/`
 );
 
-const dados = await resposta.json();
+const dados =
+await resposta.json();
 
-if(!dados.length){
-throw new Error("Endereço não encontrado");
+if(dados.erro){
+
+throw new Error("CEP não encontrado");
+
+}
+
+return `
+${dados.logradouro},
+${dados.bairro},
+${dados.localidade},
+${dados.uf}
+`;
+
+}
+
+async function buscarCoordenadas(local){
+
+if(ehCEP(local)){
+
+local =
+await converterCEP(local);
+
+}
+
+const resposta =
+await fetch(
+`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(local)}`
+);
+
+const dados =
+await resposta.json();
+
+if(dados.length === 0){
+
+throw new Error("Local não encontrado");
+
 }
 
 return {
-lat: parseFloat(dados[0].lat),
-lon: parseFloat(dados[0].lon)
+lat:parseFloat(dados[0].lat),
+lon:parseFloat(dados[0].lon)
 };
+
 }
 
 async function calcularRota(){
 
-const origem =
+let origem =
 document.getElementById("origem").value;
 
-const destino =
+let destino =
 document.getElementById("destino").value;
 
 if(!origem || !destino){
 
-alert("Preencha origem e destino");
+alert("Informe origem e destino.");
 
 return;
 
@@ -53,15 +101,17 @@ await buscarCoordenadas(origem);
 const destinoCoord =
 await buscarCoordenadas(destino);
 
-if(controleRota){
+if(rotaControle){
 
-map.removeControl(controleRota);
+map.removeControl(rotaControle);
 
 }
 
-controleRota = L.Routing.control({
+rotaControle =
+L.Routing.control({
 
 waypoints:[
+
 L.latLng(
 origemCoord.lat,
 origemCoord.lon
@@ -71,6 +121,7 @@ L.latLng(
 destinoCoord.lat,
 destinoCoord.lon
 )
+
 ],
 
 routeWhileDragging:false,
@@ -78,37 +129,55 @@ addWaypoints:false
 
 }).addTo(map);
 
-controleRota.on("routesfound",function(e){
+rotaControle.on(
+"routesfound",
 
-const rota = e.routes[0];
+function(e){
+
+const rota =
+e.routes[0];
 
 const distancia =
-(rota.summary.totalDistance/1000)
-.toFixed(2);
+(
+rota.summary.totalDistance
+/
+1000
+).toFixed(2);
 
 const tempo =
 Math.round(
-rota.summary.totalTime/60
+rota.summary.totalTime
+/
+60
 );
 
 document.getElementById(
 "distancia"
-).innerText =
+).innerHTML =
 `Distância: ${distancia} km`;
 
 document.getElementById(
 "tempo"
-).innerText =
-`Tempo: ${tempo} min`;
+).innerHTML =
+`Tempo estimado: ${tempo} min`;
 
-});
+}
 
-salvarHistorico(origem,destino);
+);
 
-}catch(error){
+salvarHistorico(
+origem,
+destino
+);
+
+}catch(erro){
 
 alert(
-"Não foi possível localizar os endereços."
+erro.message
+);
+
+console.error(
+erro
 );
 
 }
@@ -119,7 +188,9 @@ function usarLocalizacao(){
 
 if(!navigator.geolocation){
 
-alert("GPS não suportado");
+alert(
+"Geolocalização não suportada."
+);
 
 return;
 
@@ -127,35 +198,43 @@ return;
 
 navigator.geolocation.getCurrentPosition(
 
-function(posicao){
+async function(pos){
 
 const lat =
-posicao.coords.latitude;
+pos.coords.latitude;
 
 const lon =
-posicao.coords.longitude;
+pos.coords.longitude;
 
-map.setView([lat,lon],15);
+map.setView(
+[lat,lon],
+15
+);
 
-L.marker([lat,lon])
-.addTo(map)
-.bindPopup("Você está aqui")
-.openPopup();
-
-fetch(
-`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`
+L.marker(
+[lat,lon]
 )
 
-.then(resp=>resp.json())
+.addTo(map)
 
-.then(data=>{
+.bindPopup(
+"Você está aqui"
+)
+
+.openPopup();
+
+const resposta =
+await fetch(
+`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`
+);
+
+const dados =
+await resposta.json();
 
 document.getElementById(
 "origem"
 ).value =
-data.display_name;
-
-});
+dados.display_name;
 
 }
 
@@ -163,11 +242,16 @@ data.display_name;
 
 }
 
-function salvarHistorico(origem,destino){
+function salvarHistorico(
+origem,
+destino
+){
 
 let historico =
 JSON.parse(
-localStorage.getItem("historico")
+localStorage.getItem(
+"historico"
+)
 ) || [];
 
 historico.unshift({
@@ -176,11 +260,16 @@ destino
 });
 
 historico =
-historico.slice(0,10);
+historico.slice(
+0,
+10
+);
 
 localStorage.setItem(
 "historico",
-JSON.stringify(historico)
+JSON.stringify(
+historico
+)
 );
 
 carregarHistorico();
@@ -189,35 +278,45 @@ carregarHistorico();
 
 function carregarHistorico(){
 
-const historico =
-JSON.parse(
-localStorage.getItem("historico")
-) || [];
-
 const lista =
 document.getElementById(
-"listaHistorico"
+"historico"
 );
 
-if(!lista) return;
+if(!lista){
+
+return;
+
+}
+
+const historico =
+JSON.parse(
+localStorage.getItem(
+"historico"
+)
+) || [];
 
 lista.innerHTML = "";
 
 historico.forEach(item=>{
 
 const li =
-document.createElement("li");
+document.createElement(
+"li"
+);
 
 li.innerHTML =
 `
+<strong>Origem:</strong>
 ${item.origem}
 <br>
-⬇️
-<br>
+<strong>Destino:</strong>
 ${item.destino}
 `;
 
-lista.appendChild(li);
+lista.appendChild(
+li
+);
 
 });
 
