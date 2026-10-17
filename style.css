@@ -1,82 +1,110 @@
 *{
 margin:0;
 padding:0;
-box-sizing:border-box;
-font-family:Segoe UI,sans-serif;
+box-*izing:border-box;
+font-family:Sego* UI,sans-serif;
 }
 
 body{
-display:flex;
+display:f*ex;
 height:100vh;
+background:#0f17*a;
 overflow:hidden;
-background:#111827;
 }
 
 .sidebar{
-width:350px;
-background:#1f2937;
-color:white;
-padding:20px;
+w*dth:380px;
+background:#111827;
+col*r:white;
 overflow-y:auto;
+padding:*0px;
 }
 
 .logo{
 font-size:28px;
-font-weight:bold;
-margin-bottom:25px;
+fon*-weight:bold;
 text-align:center;
+m*rgin-bottom:25px;
 }
 
-input{
+.form-group{
+*argin-bottom:15px;
+}
+
+label{
+displ*y:block;
+margin-bottom:8px;
+}
+
+inp*t,
+select{
 width:100%;
-padding:12px;
-margin-bottom:15px;
+padding:12p*;
 border:none;
-border-radius:8px;
-font-size:15px;
+border-radius:10px;*font-size:15px;
 }
 
 .buttons{
-display:flex;
+displ*y:flex;
 flex-direction:column;
-gap:10px;
+gap*10px;
 }
 
 button{
-padding:12px;
-border:none;
-border-radius:8px;
-cursor:pointer;
-font-weight:bold;
-background:#2563eb;
+padding:14px;
+bor*er:none;
+border-radius:10px;
+backg*ound:#2563eb;
 color:white;
-transition:0.3s;
+font-si*e:15px;
+cursor:pointer;
+transition*0.3s;
 }
 
 button:hover{
-background:#1d4ed8;
+background:*1d4ed8;
 }
 
 .info{
-margin-top:25px;
+margin-top:20px;*background:#1f2937;
 padding:15px;
+*order-radius:12px;
+}
+
+.card-transporte{
+margin-top:12px;
+padding:10px;
 background:#374151;
 border-radius:10px;
 }
 
-.info h3{
-margin-bottom:10px;
+.card-transporte h4{
+margin-bottom:6px;
 }
 
-.info p{
-margin-top:8px;
+.onibus-box{
+margin-top:20px;
+padding:15px;
+background:#1f2937;
+border-radius:12px;
+}
+
+.onibus-box ul{
+list-style:none;
+}
+
+.onibus-box li{
+margin-top:10px;
+padding:10px;
+background:#374151;
+border-radius:8px;
 }
 
 .historico{
 margin-top:20px;
+background:#1f2937;
 padding:15px;
-background:#374151;
-border-radius:10px;
+border-radius:12px;
 }
 
 .historico ul{
@@ -84,11 +112,10 @@ list-style:none;
 }
 
 .historico li{
+margin-top:10px;
 padding:10px;
-margin-top:8px;
-background:#4b5563;
-border-radius:8px;
-font-size:14px;
+background:#374151;
+border-radius:10px;
 }
 
 #map{
@@ -103,11 +130,11 @@ flex-direction:column;
 
 .sidebar{
 width:100%;
-height:40%;
+height:45%;
 }
 
 #map{
-height:60%;
+height:55%;
 }
 
 }
