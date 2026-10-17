@@ -1,84 +1,125 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rotas RJ</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Leaflet -->
-    <link rel="stylesheet"
-        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<title>Rotas RJ Premium</title>
 
-    <!-- Routing Machine -->
-    <link rel="stylesheet"
-        href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css"/>
+<link rel="stylesheet"
+href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 
-    <!-- Seu CSS -->
-    <link rel="stylesheet" href="style.css">
+<link rel="stylesheet"
+href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css"/>
+
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-    <aside class="sidebar">
+<aside class="sidebar">
 
-        <div class="logo">
-            🗺️ Rotas RJ
-        </div>
+<div class="logo">
+🗺️ Rotas RJ Premium
+</div>
 
-        <div class="form-group">
-            <label>Origem</label>
-            <input
-                type="text"
-                id="origem"
-                placeholder="Ex: Copacabana, Rio de Janeiro">
-        </div>
+<div class="form-group">
+<label>Origem</label>
+<input
+type="text"
+id="origem"
+placeholder="Ex: Copacabana">
+</div>
 
-        <div class="form-group">
-            <label>Destino</label>
-            <input
-                type="text"
-                id="destino"
-                placeholder="Ex: Cristo Redentor">
-        </div>
+<div class="form-group">
+<label>Destino</label>
+<input
+type="text"
+id="destino"
+placeholder="Ex: Cristo Redentor">
+</div>
 
-        <div class="buttons">
-            <button onclick="usarLocalizacao()">
-                📍 Minha Localização
-            </button>
+<div class="form-group">
+<label>Modo de Transporte</label>
 
-            <button onclick="calcularRota()">
-                🚗 Calcular Rota
-            </button>
-        </div>
+<select id="modo">
+<option value="car">🚗 Carro</option>
+<option value="bus">🚌 Ônibus</option>
+<option value="foot">🚶 A pé</option>
+<option value="bike">🚴 Bicicleta</option>
+</select>
+</div>
 
-        <div class="info">
-            <h3>Informações da Rota</h3>
+<div class="buttons">
 
-            <p id="distancia">
-                Distância: --
-            </p>
+<button onclick="usarLocalizacao()">
+📍 Minha Localização
+</button>
 
-            <p id="tempo">
-                Tempo: --
-            </p>
-        </div>
+<button onclick="calcularRota()">
+🚀 Calcular Rota
+</button>
 
-        <div class="historico">
-            <h3>Histórico</h3>
-            <ul id="listaHistorico"></ul>
-        </div>
+</div>
 
-    </aside>
+<div class="info">
 
-    <main id="map"></main>
+<h3>Informações da Viagem</h3>
 
-    <!-- Leaflet -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<p id="distancia">
+Distância: --
+</p>
 
-    <!-- Routing Machine -->
-    <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
+<div class="card-transporte">
+<h4>🚗 Carro</h4>
+<p id="tempoCarro">--</p>
+</div>
 
-    <!-- Seu JavaScript -->
-    <script src="script.js"></script>
+<div class="card-transporte">
+<h4>🚌 Ônibus</h4>
+<p id="tempoOnibus">--</p>
+</div>
+
+<div class="card-transporte">
+<h4>🚶 A Pé</h4>
+<p id="tempoPe">--</p>
+</div>
+
+<div class="card-transporte">
+<h4>🚴 Bicicleta</h4>
+<p id="tempoBike">--</p>
+</div>
+
+</div>
+
+<div class="onibus-box">
+<h3>🚌 Linhas Sugeridas</h3>
+
+<ul id="linhasOnibus">
+<li>Calcule uma rota...</li>
+</ul>
+</div>
+
+<div class="historico">
+
+<h3>📌 Histórico</h3>
+
+<ul id="listaHistorico"></ul>
+
+</div>
+
+</aside>
+
+<main id="map"></main>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
+
+<script src="script.js"></script>
 
 </body>
+
 </html>
+``
