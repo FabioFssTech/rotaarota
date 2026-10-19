@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rotas RJ</title>
+
+    <!-- Leaflet -->
+    <link rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+    <!-- Routing Machine -->
+    <link rel="stylesheet"
+        href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css"/>
+
+    <!-- Seu CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            🗺️ Rotas RJ
+        </div>
+
+        <div class="form-group">
+            <label>Origem</label>
+            <input
+                type="text"
+                id="origem"
+                placeholder="Ex: Copacabana, Rio de Janeiro">
+        </div>
+
+        <div class="form-group">
+            <label>Destino</label>
+            <input
+                type="text"
+                id="destino"
+                placeholder="Ex: Cristo Redentor">
+        </div>
+
+        <div class="buttons">
+            <button onclick="usarLocalizacao()">
+                📍 Minha Localização
+            </button>
+
+            <button onclick="calcularRota()">
+                🚗 Calcular Rota
+            </button>
+        </div>
+
+        <div class="info">
+            <h3>Informações da Rota</h3>
+
+            <p id="distancia">
+                Distância: --
+            </p>
+
+            <p id="tempo">
+                Tempo: --
+            </p>
+        </div>
+
+        <div class="historico">
+            <h3>Histórico</h3>
+            <ul id="listaHistorico"></ul>
+        </div>
+
+    </aside>
+
+    <main id="map"></main>
+
+    <!-- Leaflet -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <!-- Routing Machine -->
+    <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
+
+    <!-- Seu JavaScript -->
+    <script src="script.js"></script>
+
+</body>
+</html>
